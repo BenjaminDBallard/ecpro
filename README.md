@@ -1,2 +1,0 @@
-# ecpro
-Electrical bid app
