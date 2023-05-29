@@ -1,0 +1,22 @@
+/* .homepage{
+    display: flex;
+    width: 99vw;
+    height: 70%;
+    left: 0;
+    background-image: url('./assets/construction.jpeg');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    color: #ffffff;
+}
+
+.banner{
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    background-image: linear-gradient(to right, #222222, #222222ab);
+    width: 99vw;
+}
+.bannerText{
+    width: 50%;
+} */
