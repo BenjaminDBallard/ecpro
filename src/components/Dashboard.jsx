@@ -15,7 +15,7 @@ export default function Dashboard() {
 
     return(
         <Box maxWidth='xl' sx={{margin: '60px auto'}}>
-            <Typography sx={{margin: '0 60px'}}>WELCOME {user.nickname.toUpperCase()}!</Typography>
+            <Typography sx={{margin: '0 60px'}}>Welcome!</Typography>
             <Box sx={{margin: '6px 60px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 {tests.map((test, idx) => (
                     <Accordion key={idx} sx={{width: '100%'}}>
@@ -26,6 +26,7 @@ export default function Dashboard() {
                         >
                             <Box sx={{display: 'flex', justifyContent: 'space-between',}}>
                                 <Typography>{test.client.toUpperCase()}</Typography>
+                                {/* <Typography>{test.client.toUpperCase()}</Typography> */}
                             </Box>
                         
                         
