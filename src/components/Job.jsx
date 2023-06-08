@@ -11,7 +11,7 @@ export default function Job() {
     const job = tests[client].jobs.find((j) => j.job_id === Number(jobID))
 
     return(
-        <Box sx={{padding: '10px'}}>
+        <Box sx={{padding: '10px', backgroundColor: '#ffffff', margin: '60px 60px', borderRadius: '5px'}}>
             <Typography>Job ID: {job.job_id}</Typography>
             <Typography>Address: {job.address}</Typography>
             <Box>

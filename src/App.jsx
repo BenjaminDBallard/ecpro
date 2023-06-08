@@ -16,10 +16,9 @@ export default function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/client" element={<Outlet />} >
-                    <Route path=":client_id" element={<ClientIndex />} >
-                        <Route path=":job_id" element={<Job />} />
-                    </Route>
+                    <Route path=":client_id" element={<ClientIndex />} />
                 </Route>
+                <Route path="/client/:client_id/:job_id"  element={<Job />} />
             </Routes>  
         </>       
     )

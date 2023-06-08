@@ -50,7 +50,7 @@ export default function NavigationBar() {
       </FormGroup>
       
           {!isAuthenticated && (
-            <Button size='small' onClick={() => loginWithRedirect()} variant='contained'>LOGIN</Button>
+            <Button color="success" size='small' sx={{marginRight: '10px'}} onClick={() => loginWithRedirect()} variant='contained'>LOGIN</Button>
           )}
           
           {isAuthenticated && (
