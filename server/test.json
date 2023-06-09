@@ -1,0 +1,183 @@
+{
+   "clients": [
+      {
+         "id": 0,
+         "client":"NXP Semiconductors",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 1,
+               "address": "2345 home dr. 234567, city ST",
+               "materials": []
+            }
+         ]
+      },
+      {
+         "id": 1,
+         "client":"James Wilcins",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 1,
+               "address": "2345 home dr. 234567, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 2,
+               "address": "3456 apartment dr. 345678, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 2,
+         "client":"ABIA",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 3,
+         "client":"Citizen",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 1,
+               "address": "2345 home dr. 234567, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 2,
+               "address": "3456 apartment dr. 345678, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 4,
+         "client":"Julia Pearson",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 1,
+               "address": "2345 home dr. 234567, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 5,
+         "client":"William Jake",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 6,
+         "client":"Capstone",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 1,
+               "address": "2345 home dr. 234567, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 2,
+               "address": "3456 apartment dr. 345678, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 7,
+         "client":"Drew Perez",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 1,
+               "address": "2345 home dr. 234567, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 2,
+               "address": "3456 apartment dr. 345678, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 8,
+         "client":"Sonic",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            }
+         ]
+
+      },
+      {
+         "id": 9,
+         "client":"Uppercrust Bakery",
+         "jobs": [
+            {
+               "job_id": 0,
+               "address": "1234 house dr. 123456, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 1,
+               "address": "2345 home dr. 234567, city ST",
+               "materials": []
+            },
+            {
+               "job_id": 2,
+               "address": "3456 apartment dr. 345678, city ST",
+               "materials": []
+            }
+         ]
+
+      }
+   ]
+}
