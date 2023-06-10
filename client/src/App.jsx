@@ -12,7 +12,7 @@ export default function App() {
     const [backendData, setBackendData] = useState([{}])
 
     useEffect(() => {
-      fetch("/user").then(
+      fetch("/users").then(
         response => response.json()
       ).then(
         data => {

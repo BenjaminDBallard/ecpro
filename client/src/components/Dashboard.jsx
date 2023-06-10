@@ -7,10 +7,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from "react-router-dom";
 import { AddCircle } from "@mui/icons-material";
 // import clients from '../../../server/test.json'
+// import test from '../../../client/public/test.json'
 
 export default function Dashboard(props) {
 
     const clients = props.data.clients
+    
 
     return(
         <Box maxWidth='xl' sx={{margin: '60px auto'}}>
