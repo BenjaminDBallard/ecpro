@@ -10,8 +10,7 @@ import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import DescriptionIcon from '@mui/icons-material/Description';
 
 
-export default function Root(props) {
-    console.log(props.data)
+export default function Root() {
 
     const { loginWithRedirect } = useAuth0();
 
