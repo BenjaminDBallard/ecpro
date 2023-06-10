@@ -12,7 +12,7 @@ export default function App() {
     const [backendData, setBackendData] = useState([{}])
 
     useEffect(() => {
-      fetch("/users").then(
+      fetch("http://localhost:5173/test.json").then(
         response => response.json()
       ).then(
         data => {
@@ -25,7 +25,7 @@ export default function App() {
 
     return (
         <>
-            {(typeof backendData.user === 'undefined') ? (
+            {(typeof backendData.clients === 'undefined') ? (
                 <p>Loading...</p>
             ) : (
             <div>
