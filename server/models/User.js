@@ -14,7 +14,7 @@ class User {
         VALUES(
             '${this.firstName}',
             '${this.lastName}'
-        )
+        );
         `;
 
         return db.execute(sql)

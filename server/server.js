@@ -8,6 +8,10 @@ app.use(express.json())
 
 //Redirect to endpoint
 app.use("/user", require("./routes/userRoutes.js"))
+app.use("/clients", require("./routes/clientsRoutes.js"))
+app.use("/jobs", require("./routes/jobsRoutes.js"))
+app.use("/materials", require("./routes/materialsRoutes.js"))
+app.use("/labor", require("./routes/laborRoutes.js"))
 
 //Error Handler
 app.use((err, req, res, next) => {

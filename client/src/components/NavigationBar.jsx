@@ -82,7 +82,7 @@ export default function NavigationBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}><Link to='/profile'>Profile</Link></MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}><Link to='/account'>My Account</Link></MenuItem>
                 <MenuItem onClick={handleClose}><Button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>logout</Button></MenuItem>
               </Menu>
               {/* <PathBar /> */}

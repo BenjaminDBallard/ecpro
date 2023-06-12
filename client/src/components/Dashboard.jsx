@@ -6,15 +6,37 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from "react-router-dom";
 import { AddCircle } from "@mui/icons-material";
-// import clients from '../../../server/test.json'
-// import test from '../../../client/public/test.json'
+import { useEffect, useState} from "react";
+import { fetchDashboardData } from "../api/fetch-data";
+// import { DataContext } from "../App";
+// import AddClient from "./AddClient";
 
-export default function Dashboard(props) {
+export default function Dashboard() {
+    // const {clientsData, setClientsData, jobsData, setJobsData} = useContext(DataContext)
+    const [clientsData, setClientsData] = useState({})
+    const [jobsData, setJobsData] = useState({})
 
-    const clients = props.data.clients
-    
+    useEffect(() => {
+        (
+            async () => {
+                const {clientResponse, jobsResponse} = await fetchDashboardData()
+                if (clientResponse.clients?.length > 0) {
+                    setClientsData(clientResponse)
+                }
+
+                if (jobsResponse.jobs?.length > 0) {
+                    setJobsData(jobsResponse)
+                }
+            } 
+        )()
+        
+    }, [setClientsData, setJobsData])
 
     return(
+        <>
+        {(typeof clientsData === 'undefined') ? (
+            <p>Loading...</p>
+        ) : (
         <Box maxWidth='xl' sx={{margin: '60px auto'}}>
             <Box sx={{ display: 'flex' , alignItems: 'center', gap: '5px',  margin: '6px 60px', borderRadius: '5px'}}>
                 <Typography fontSize={'20px'}>Dashboard</Typography>
@@ -24,8 +46,17 @@ export default function Dashboard(props) {
                 <Typography>Client List:</Typography>
             </Box>
             <Box sx={{margin: '6px 60px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                {clients.map((client, idx) => (
-                    <Accordion key={idx} sx={{width: '100%'}}>
+                {clientsData.clients?.map((client, idx) => {
+                    const clientID = client.id
+                    const clientsJobs = [] 
+
+                    jobsData.jobs.forEach((job) => {
+                        if (job.client_id === clientID) {
+                            clientsJobs.push(job)
+                        }
+                    })
+
+                    return ( <Accordion key={idx} sx={{width: '100%'}}>
                         <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
@@ -33,15 +64,15 @@ export default function Dashboard(props) {
                         sx={{display: 'flex', justifyContent: 'space-between'}}
                         >
                             <Box sx={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                                <Typography>{client.client.toUpperCase()}</Typography>
-                                <Typography sx={{marginRight: '20px'}}> Jobs: {client.jobs.length}</Typography>
+                                <Typography>{client.company.toUpperCase()}</Typography>
+                                <Typography sx={{marginRight: '20px'}}> Jobs: {clientsJobs.length}</Typography>
                             </Box>
                             
                         
                                     
                         </AccordionSummary>
                         <AccordionDetails>
-                            {client.jobs.map((job, index)=>(
+                            {clientsJobs.map((job, index)=>(
                                 <Accordion key={index} sx={{backgroundColor: '#f1f1f1'}}> 
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -51,16 +82,18 @@ export default function Dashboard(props) {
                                         <Typography>{job.address.toUpperCase()}</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails sx={{display: 'flex', justifyContent: 'space-between'}}>
-                                        <Typography>Job ID: {job.job_id}</Typography>
-                                        <Link to={`/client/${idx}/${job.job_id}`}><Button variant="contained" color="success">View</Button></Link>
+                                        <Typography>Job ID: {job.id}</Typography>
+                                        <Link to={`/client/${idx}/${job.id}`}><Button size='small' variant="contained" color="success">View Job</Button></Link>
                                     </AccordionDetails>
                                 </Accordion>
                             ))}
-                        <Link to={`/client/${idx}`}><Button sx={{margin: '15px 0 0'}} size="small" variant="contained" color="success">View</Button></Link>
+                        <Link to={`/client/${idx}`}><Button sx={{margin: '15px 0 0'}} size="small" variant="contained" color="success">View Client</Button></Link>
                         </AccordionDetails>
                     </Accordion>
-                ))}
+                )})}
                 <IconButton color="success" sx={{height: '51px'}}><AddCircle fontSize='large'/></IconButton>
             </Box>
         </Box>
+    )}
+</>
 )}
