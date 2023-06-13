@@ -6,7 +6,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { fetchJobsData } from '../api/fetch-data';
 import { useEffect, useState } from 'react';
 import { PieChart } from 'react-minimal-pie-chart'
-import AddMaterial from './AddMaterial'
 import AddLabor from './AddLabor'
 import SearchAddMaterial from './SearchAddMaterial';
 
