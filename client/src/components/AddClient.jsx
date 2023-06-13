@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import {
     Button,
     TextField,
@@ -7,99 +7,101 @@ import {
     DialogTitle
 } from '@mui/material'
 
-export default function AddClient() {
-    let values = {
+const AddClient = (props) => {
+    console.log(props)
+    const [formState, setFormState] = useState({
         open: false,
-        name: '',
-        mpg: '',
-        cylinders: '',
-        horsepower: '',
+        first_name: '',
+        last_name: '',
+        company: '',
+        phone: '',
+        email: ''
+    })
+
+    const toggleDialog = () => setFormState({ open: !formState.open })
+
+    const handleTextChange = (e, valueType) => {
+        let value = valueType === "number" ? parseInt(e.target.value) : e.target.value
+        const newState = { ...formState }
+        
+        newState[e.target.id] = value
+        setFormState(newState)
     }
 
-    toggleDialog = () => this.setState({ open: !this.state.open })
-
-    handleTextChange = (e) => {
-        const newState = { ...this.state }
-        newState[e.target.id] = e.target.value
-        this.setState(newState)
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        const payload = { ...this.state }
-        payload.id = this.props.carTotal + 1
+        const payload = { ...formState }
+        console.log(props)
+        payload.user_id = props.user_id
+        console.log('!!!!!!!!!!!!!!!!!!!!')
+        console.log(JSON.stringify(payload))
         delete payload.open
-        console.log("THE CAR", payload)
-        this.props.addCar(payload)
-        this.setState({ open: false })
+        setFormState({ open: false })
+        const response = await fetch("/clients", {
+            method : "POST",
+            headers: {"Content-Type" : "application/json"},
+            body : JSON.stringify(payload)
+        })
+        const prevState = props.triggerReRender + 1
+        props.setTriggerReRender(prevState)
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (prevState.open !== this.state.open) {
-            this.setState({
-                name: '',
-                mpg: '',
-                cylinders: '',
-                horsepower: ''
-            })
-        }
-    }
-
-    return (
-        <>
-            <div style={{ textAlign: 'center' }}>
-                <Button
-                    variant="contained"
-                    onClick={this.toggleDialog}
-                    color='success'
-                    size='small'
-                >
-                    New Client
-                </Button>
-            </div>
-            <div>
-                <Dialog open={this.state.open} onClose={this.toggleDialog} >
-                    <DialogTitle>Add New Client</DialogTitle>
-                    <DialogContent>
-                        <form 
-                            onSubmit={this.handleSubmit}
-                            style={{ display: 'flex', flexDirection: 'column', width: '350px' }}>
-                            <TextField 
-                                id="firstname" 
-                                placeholder="Firstname" 
-                                value={this.state.first_name} 
-                                onChange={this.handleTextChange} 
-                                required />
-                            <TextField 
-                                id="lastname" 
-                                placeholder="Lastname" 
-                                value={this.state.last_name} 
-                                onChange={this.handleTextChange} 
-                                required />
-                            <TextField 
-                                id="company" 
-                                placeholder="Company" 
-                                value={this.state.company} 
-                                onChange={this.handleTextChange} 
-                                required />
-                            <TextField 
-                                id="phone" 
-                                placeholder="Phone" 
-                                value={this.state.phone} 
-                                onChange={this.handleTextChange} 
-                                required />
-                            <TextField 
-                                id="email" 
-                                placeholder="Email" 
-                                value={this.state.email} 
-                                onChange={this.handleTextChange} 
-                                required />
-                            <br />
-                            <Button variant="contained" color="success" size='small' type="submit">Submit</Button>
-                        </form>
-                    </DialogContent>
-                </Dialog>
-            </div>
-        </>
-    )
+        return (
+            <Fragment>
+                <div style={{ textAlign: 'center' }}>
+                    <Button
+                        variant="contained"
+                        color='success'
+                        onClick={toggleDialog}
+                    >
+                        Add Client
+                    </Button>
+                </div>
+                <div>
+                    <Dialog open={formState.open} onClose={toggleDialog} >
+                        <DialogTitle>Add Labor</DialogTitle>
+                        <DialogContent>
+                            <form 
+                                onSubmit={handleSubmit}
+                                style={{ display: 'flex', flexDirection: 'column', width: '350px', rowGap: "20px" }}>
+                                <TextField 
+                                    id="first_name" 
+                                    placeholder="First Name" 
+                                    value={formState.first_name} 
+                                    onChange={(e) => handleTextChange(e, "string")} 
+                                    required />
+                                <TextField 
+                                    id="last_name" 
+                                    placeholder="Last Name" 
+                                    value={formState.last_name} 
+                                    onChange={ (e) => handleTextChange(e, "string")} 
+                                    required />
+                                <TextField 
+                                    id="company" 
+                                    placeholder="Company" 
+                                    value={formState.company} 
+                                    onChange={(e) => handleTextChange(e, "string")} 
+                                    required />
+                                <TextField 
+                                    id="phone" 
+                                    placeholder="Phone" 
+                                    value={formState.phone} 
+                                    onChange={(e) => handleTextChange(e, "string")} 
+                                    required />
+                                <TextField 
+                                    id="email" 
+                                    placeholder="Email" 
+                                    value={formState.email} 
+                                    onChange={(e) => handleTextChange(e, "string")} 
+                                    required />
+                                <br />
+                                <Button variant="contained" color="success" type="submit">Submit</Button>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+            </Fragment>
+        )
 }
+
+export default AddClient

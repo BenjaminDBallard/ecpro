@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom'
 // import tests from '../test.json'
-import { Box, Container, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
-import { AddCircle } from '@mui/icons-material'
+import { Box, Container, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 // import { DataContext } from "../App";
 import { fetchJobsData } from '../api/fetch-data';
@@ -9,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { PieChart } from 'react-minimal-pie-chart'
 import AddMaterial from './AddMaterial'
 import AddLabor from './AddLabor'
+import SearchAddMaterial from './SearchAddMaterial';
 
 export default function Job() {
 
@@ -16,6 +16,7 @@ export default function Job() {
     const [jobsData, setJobsData] = useState({})
     const [materialsData, setMaterialsData] = useState({})
     const [laborData, setLaborData] = useState({})
+    const [triggerReRender, setTriggerReRender] = useState(1)
 
     useEffect(() => {
         (
@@ -35,7 +36,7 @@ export default function Job() {
             } 
         )()
         
-    }, [setJobsData, setMaterialsData, setLaborData])
+    }, [setJobsData, setMaterialsData, setLaborData, triggerReRender])
 
     const params = useParams()
     const clientID = Number(params.client_id) + 1
@@ -44,19 +45,21 @@ export default function Job() {
     let job = {}
     let jobsMaterials = []
     let jobsLabor = []
-    let materialPrices = []
+
+    let materialPrices = [0, 0]
     let materialTotal = 0
     let materialMarkupTotal = 0
-    let laborPrices = []
+
+    let laborPrices = [0, 0]
     let laborTotal = 0
     let laborMarkupTotal = 0
+
     const defaultMarkup = .3
 
 
     jobsData.jobs?.forEach((currentJob) => {
         if ((currentJob.id === jobID)&&(currentJob.client_id === clientID)) {
             job = currentJob
-            console.log(job)
         }
     })
 
@@ -83,7 +86,9 @@ export default function Job() {
     return(
         <>
         {(typeof job.id === 'undefined') ? (
-            <Typography>Loading...</Typography>
+            <Container sx={{margin: '200px auto', textAlign: 'center'}}>
+                <Typography variant="h4">Loading...</Typography>
+            </Container>
         ) : (
         <Box maxWidth='lg' sx={{display: 'flex', flexDirection: 'column', gap: '5px', margin: '60px auto'}}>
         <Box sx={{display: 'flex', justifyContent:'space-between', padding: '15px', backgroundColor: '#ffffff', borderRadius: '5px', border: '1px #cacaca solid', filter: 'drop-shadow(3px 2px 4px #00000053)'}}>
@@ -109,14 +114,14 @@ export default function Job() {
                         <Typography>USD</Typography>
                     </Box>
                 </Box>
-                
+                <Box></Box>
                 <PieChart
                 style={{ width: '300px', filter: 'drop-shadow(5px 4px 4px #00000088)' }}
                 data={[
-                    { title: 'Material', value: materialTotal, color: '#e38527' },
+                    { title: materialTotal, value: materialTotal, color: '#e38527' },
                     { title: 'Material Mark-up', value: materialMarkupTotal, color: '#01c923' },
                     { title: 'Labor Mark-up', value: laborMarkupTotal, color: '#007018' },
-                    { title: 'Labor', value: laborTotal, color: '#c11537' },
+                    { title: laborTotal, value: laborTotal, color: '#c11537' },
                 ]}
                 labelPosition={50}
                 lengthAngle={360}
@@ -126,6 +131,42 @@ export default function Job() {
                 startAngle={0}
                 viewBoxSize={[100, 100]}
                 />
+                <h6>
+                    <span style={{background: '#e38527'}}>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                    </span>
+                    &nbsp;
+                    <span>Material</span>
+                    &nbsp;
+                    &nbsp;
+                    <span style={{background: '#01c923'}}>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                    </span>
+                    &nbsp;
+                    <span>Material Mark-up</span>
+                    &nbsp;
+                    &nbsp;
+                    <span style={{background: '#c11537'}}>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                    </span>
+                    &nbsp;
+                    <span>Labor</span>
+                    &nbsp;
+                    &nbsp;
+                    <span style={{background: '#007018'}}>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                    </span>
+                    &nbsp;
+                    <span>Labor Mark-up</span>
+                </h6>
             </Box>
             <Box sx={{display: 'flex', flexDirection: 'column', padding: '20px',gap: '20px' , backgroundColor: '#ffffff', borderRadius: '5px', width: '70%', border: '1px #cacaca solid', filter: 'drop-shadow(3px 2px 4px #00000053)'}}>
                 <Box>
@@ -210,7 +251,7 @@ export default function Job() {
                             </TableBody>
                         </Table>
                     </Container>
-                <AddMaterial />
+                    <SearchAddMaterial job_id={jobID} triggerReRender={triggerReRender} setTriggerReRender={setTriggerReRender}/>
                 
                     <Container maxWidth="lg" sx={{marginBottom: '10px'}}>
                             <Table>
@@ -243,10 +284,11 @@ export default function Job() {
                             </TableBody>
                         </Table>
                     </Container>
-                <AddLabor />
+                <AddLabor job_id={jobID} triggerReRender={triggerReRender} setTriggerReRender={setTriggerReRender}/>
             </Box>
             
         </Box>
+        
         </Box>
         )}</>
     )

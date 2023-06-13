@@ -14,10 +14,11 @@ class Labor {
         this.quantity = quantity
         this.hours = hours
     }
-
+    
     save() {
+        console.log("!!!!!!!!",this)
         let sql = `
-        INSERT INTO materials(
+        INSERT INTO labor(
             job_id,
             job_title,
             pay_scale,

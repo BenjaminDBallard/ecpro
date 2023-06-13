@@ -13,10 +13,28 @@ exports.getAllClients = async (req, res, next) => {
 
 exports.createNewClient = async (req, res, next) => {
     try {
-        let { firstName, lastName } = req.body
-    let client = new Client("firstName", "lastName")
+        let { 
+            user_id,
+            first_name,
+            last_name,
+            company,
+            phone,
+            email 
+        } = req.body
 
-    client = await Client.save()
+        console.log('????????????????????????????????')
+        console.log(req.body)
+
+    let client = new Client(
+        user_id,
+        first_name,
+        last_name,
+        company,
+        phone,
+        email
+    )
+
+    client = await client.save()
 
     res.status(201).json({message: "Client created"})
     } catch (error) {

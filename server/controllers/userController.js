@@ -14,7 +14,7 @@ exports.getAllUsers = async (req, res, next) => {
 exports.createNewUser = async (req, res, next) => {
     try {
         let { firstName, lastName } = req.body
-    let user = new User("firstName", "lastName")
+    let user = new User(firstName, lastName)
 
     user = await user.save()
 

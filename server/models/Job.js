@@ -17,7 +17,7 @@ class Job {
 
     save() {
         let sql = `
-        INSERT INTO clients(
+        INSERT INTO jobs(
             client_id,
             name,
             address,

@@ -13,10 +13,29 @@ exports.getAllMaterials = async (req, res, next) => {
 
 exports.createNewMaterial = async (req, res, next) => {
     try {
-        let { firstName, lastName } = req.body
-    let material = new Material("firstName", "lastName")
+        let { 
+            job_id,
+            name,
+            product_id,
+            upc,
+            brand,
+            price,
+            description,
+            quantity 
+        } = req.body
 
-    material = await Material.save()
+    let material = new Material(
+        job_id,
+        name,
+        product_id,
+        upc,
+        brand,
+        price,
+        description,
+        quantity
+        )
+
+    material = await material.save()
 
     res.status(201).json({message: "material created"})
     } catch (error) {
@@ -24,7 +43,6 @@ exports.createNewMaterial = async (req, res, next) => {
         next(error)
     }
 }
-
 exports.getMaterialById = async (req, res, next) => {
     try {
         let materialId = req.params.id

@@ -13,10 +13,24 @@ exports.getAllLabor = async (req, res, next) => {
 
 exports.createNewLabor = async (req, res, next) => {
     try {
-        let { firstName, lastName } = req.body
-    let labor = new Labor("firstName", "lastName")
+        let { 
+            job_id,
+            job_title,
+            pay_scale,
+            quantity,
+            hours 
+        } = req.body
+        console.log('????????????????')
+        
+        console.log(req.body)
+    let labor = new Labor(
+        job_id,
+        job_title,
+        pay_scale,
+        quantity,
+        hours)
 
-    labor = await Labor.save()
+    labor = await labor.save()
 
     res.status(201).json({message: "labor created"})
     } catch (error) {

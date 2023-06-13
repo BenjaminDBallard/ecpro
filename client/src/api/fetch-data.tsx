@@ -47,3 +47,17 @@ export const fetchJobsData = async () => {
 
   return {jobsResponse, materialsResponse, laborResponse}
 }
+
+export const fetchMaterialsAddData = async (name) => {
+
+  const materialsAddResponse = await fetch(name).then(
+      response => response.json()
+    ).then(
+      data => {
+        return data
+      }
+    )
+
+
+  return {materialsAddResponse}
+}

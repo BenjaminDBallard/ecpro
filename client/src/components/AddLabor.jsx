@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import {
     Button,
     TextField,
@@ -7,86 +7,83 @@ import {
     DialogTitle
 } from '@mui/material'
 
-class AddLabor extends Component {
-    state = {
+const AddLabor = (props) => {
+    const [formState, setFormState] = useState({
         open: false,
         job_title: '',
-        pay_scale: '',
-        quantity: '',
-        hours: '',
+        pay_scale: 0,
+        quantity: 0,
+        hours: 0,
+    })
+
+    const toggleDialog = () => setFormState({ open: !formState.open })
+
+    const handleTextChange = (e, valueType) => {
+        let value = valueType === "number" ? parseInt(e.target.value) : e.target.value
+        const newState = { ...formState }
+        
+        newState[e.target.id] = value
+        setFormState(newState)
     }
 
-    toggleDialog = () => this.setState({ open: !this.state.open })
-
-    handleTextChange = (e) => {
-        const newState = { ...this.state }
-        newState[e.target.id] = e.target.value
-        this.setState(newState)
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        const payload = { ...this.state }
-        payload.id = this.props.carTotal + 1
+        const payload = { ...formState }
+        console.log(props)
+        payload.job_id = props.job_id
+        console.log(JSON.stringify(payload))
         delete payload.open
-        console.log("THE CAR", payload)
-        this.props.addCar(payload)
-        this.setState({ open: false })
+        setFormState({ open: false })
+        const response = await fetch("/labor", {
+            method : "POST",
+            headers: {"Content-Type" : "application/json"},
+            body : JSON.stringify(payload)
+        })
+        const prevState = props.triggerReRender + 1
+        props.setTriggerReRender(prevState)
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (prevState.open !== this.state.open) {
-            this.setState({
-                job_title: '',
-                pay_scale: '',
-                quantity: '',
-                hours: '',
-            })
-        }
-    }
-
-    render() {
         return (
             <Fragment>
                 <div style={{ textAlign: 'center' }}>
                     <Button
                         variant="contained"
                         color='success'
-                        onClick={this.toggleDialog}
+                        onClick={toggleDialog}
                     >
                         Add Labor
                     </Button>
                 </div>
                 <div>
-                    <Dialog open={this.state.open} onClose={this.toggleDialog} >
+                    <Dialog open={formState.open} onClose={toggleDialog} >
                         <DialogTitle>Add Labor</DialogTitle>
                         <DialogContent>
                             <form 
-                                onSubmit={this.handleSubmit}
-                                style={{ display: 'flex', flexDirection: 'column', width: '350px' }}>
+                                onSubmit={handleSubmit}
+                                style={{ display: 'flex', flexDirection: 'column', width: '350px', rowGap: "20px" }}>
                                 <TextField 
                                     id="job_title" 
                                     placeholder="Job Title" 
-                                    value={this.state.job_title} 
-                                    onChange={this.handleTextChange} 
+                                    value={formState.job_title} 
+                                    onChange={(e) => handleTextChange(e, "string")} 
                                     required />
                                 <TextField 
                                     id="pay_scale" 
                                     placeholder="Pay Scale" 
-                                    value={this.state.pay_scale} 
-                                    onChange={this.handleTextChange} 
+                                    value={formState.pay_scale} 
+                                    onChange={ (e) => handleTextChange(e, "integer")} 
                                     required />
                                 <TextField 
                                     id="quantity" 
                                     placeholder="Quantity" 
-                                    value={this.state.quantity} 
-                                    onChange={this.handleTextChange} 
+                                    value={formState.quantity} 
+                                    onChange={(e) => handleTextChange(e, "integer")} 
                                     required />
                                 <TextField 
                                     id="hours" 
                                     placeholder="Hours" 
-                                    value={this.state.hours} 
-                                    onChange={this.handleTextChange} 
+                                    value={formState.hours} 
+                                    onChange={(e) => handleTextChange(e, "integer")} 
                                     required />
                                 <br />
                                 <Button variant="contained" color="success" type="submit">Submit</Button>
@@ -96,7 +93,6 @@ class AddLabor extends Component {
                 </div>
             </Fragment>
         )
-    }
 }
 
 export default AddLabor

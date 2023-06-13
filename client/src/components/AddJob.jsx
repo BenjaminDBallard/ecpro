@@ -7,16 +7,14 @@ import {
     DialogTitle
 } from '@mui/material'
 
-const AddMaterial = (props) => {
+const AddClient = (props) => {
+    console.log(props)
     const [formState, setFormState] = useState({
         open: false,
         name: '',
-        product_id: 0,
-        upc: 0,
-        brand: '',
-        price: 0,
-        description: '',
-        quantity: 0 
+        address: '',
+        status: '',
+        industry: ''
     })
 
     const toggleDialog = () => setFormState({ open: !formState.open })
@@ -32,12 +30,13 @@ const AddMaterial = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const payload = { ...formState }
-        console.log(props)
-        payload.job_id = props.job_id
+        console.log(props.client_id)
+        payload.client_id = props.client_id
+        console.log('!!!!!!!!!!!!!!!!!!!!')
         console.log(JSON.stringify(payload))
         delete payload.open
         setFormState({ open: false })
-        const response = await fetch("/materials", {
+        const response = await fetch("/jobs", {
             method : "POST",
             headers: {"Content-Type" : "application/json"},
             body : JSON.stringify(payload)
@@ -54,12 +53,12 @@ const AddMaterial = (props) => {
                         color='success'
                         onClick={toggleDialog}
                     >
-                        Add Material
+                        Add Job
                     </Button>
                 </div>
                 <div>
                     <Dialog open={formState.open} onClose={toggleDialog} >
-                        <DialogTitle>Add Material</DialogTitle>
+                        <DialogTitle>Add Job</DialogTitle>
                         <DialogContent>
                             <form 
                                 onSubmit={handleSubmit}
@@ -71,40 +70,22 @@ const AddMaterial = (props) => {
                                     onChange={(e) => handleTextChange(e, "string")} 
                                     required />
                                 <TextField 
-                                    id="product_id" 
-                                    placeholder="Product ID" 
-                                    value={formState.product_id} 
-                                    onChange={ (e) => handleTextChange(e, "integer")} 
+                                    id="address" 
+                                    placeholder="Address" 
+                                    value={formState.address} 
+                                    onChange={ (e) => handleTextChange(e, "string")} 
                                     required />
                                 <TextField 
-                                    id="upc" 
-                                    placeholder="UPC" 
-                                    value={formState.upc} 
-                                    onChange={(e) => handleTextChange(e, "integer")} 
-                                    required />
-                                <TextField 
-                                    id="brand" 
-                                    placeholder="Brand" 
-                                    value={formState.brand} 
+                                    id="status" 
+                                    placeholder="Status" 
+                                    value={formState.status} 
                                     onChange={(e) => handleTextChange(e, "string")} 
                                     required />
                                 <TextField 
-                                    id="price" 
-                                    placeholder="Price" 
-                                    value={formState.price} 
-                                    onChange={(e) => handleTextChange(e, "integer")} 
-                                    required />
-                                <TextField 
-                                    id="description" 
-                                    placeholder="Description" 
-                                    value={formState.description} 
+                                    id="industry" 
+                                    placeholder="Industry" 
+                                    value={formState.industry} 
                                     onChange={(e) => handleTextChange(e, "string")} 
-                                    required />
-                                <TextField 
-                                    id="quantity" 
-                                    placeholder="Quantity" 
-                                    value={formState.quantity} 
-                                    onChange={(e) => handleTextChange(e, "integer")} 
                                     required />
                                 <br />
                                 <Button variant="contained" color="success" type="submit">Submit</Button>
@@ -116,4 +97,4 @@ const AddMaterial = (props) => {
         )
 }
 
-export default AddMaterial
+export default AddClient

@@ -10,8 +10,8 @@ class Client {
     )
     {
         this.user_id = user_id
-        this.firstName = firstName
-        this.lastName = lastName
+        this.first_name = first_name
+        this.last_name = last_name
         this.company = company
         this.phone = phone
         this.email = email
@@ -29,11 +29,11 @@ class Client {
         )
         VALUES(
             '${this.user_id}',
-            '${this.firstName}',
-            '${this.lastName}',
+            '${this.first_name}',
+            '${this.last_name}',
             '${this.company}',
             '${this.phone}',
-            '${this.email}',
+            '${this.email}'
         );
         `;
 

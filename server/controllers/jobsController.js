@@ -13,10 +13,20 @@ exports.getAllJobs = async (req, res, next) => {
 
 exports.createNewJob = async (req, res, next) => {
     try {
-        let { firstName, lastName } = req.body
-    let job = new Job("firstName", "lastName")
+        let { 
+            client_id,
+            name,
+            address,
+            status,
+            industry } = req.body
+    let job = new Job(
+        client_id,
+        name,
+        address,
+        status,
+        industry)
 
-    job = await Job.save()
+    job = await job.save()
 
     res.status(201).json({message: "job created"})
     } catch (error) {

@@ -3,11 +3,14 @@ require("dotenv").config()
 const express = require("express")
 const app = express()
 
+const usersRouter = require("./routes/userRoutes.js")
+
 //Middleware
 app.use(express.json())
 
 //Redirect to endpoint
-app.use("/user", require("./routes/userRoutes.js"))
+app.use("/user", usersRouter);
+
 app.use("/clients", require("./routes/clientsRoutes.js"))
 app.use("/jobs", require("./routes/jobsRoutes.js"))
 app.use("/materials", require("./routes/materialsRoutes.js"))
