@@ -7,9 +7,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from "react-router-dom";
 // import { AddCircle } from "@mui/icons-material";
 import { useEffect, useState} from "react";
-import { fetchDashboardData } from "../api/fetch-data";
+import { fetchDashboardData } from "../../api/fetch-data";
 // import { DataContext } from "../App";
-import AddClient from "./AddClient";
+import AddClient from "../sub-components/dashboard-comps/AddClient";
 
 export default function Dashboard() {
     // const {clientsData, setClientsData, jobsData, setJobsData} = useContext(DataContext)

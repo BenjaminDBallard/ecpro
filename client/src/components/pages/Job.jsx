@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom'
 import { Box, Container, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 // import { DataContext } from "../App";
-import { fetchJobsData } from '../api/fetch-data';
+import { fetchJobsData } from '../../api/fetch-data';
 import { useEffect, useState } from 'react';
 import { PieChart } from 'react-minimal-pie-chart'
-import AddLabor from './AddLabor'
-import SearchAddMaterial from './SearchAddMaterial';
+import AddLabor from '../sub-components/job-comps/AddLabor'
+import SearchAddMaterial from '../sub-components/job-comps/SearchAddMaterial';
 
 export default function Job() {
 
