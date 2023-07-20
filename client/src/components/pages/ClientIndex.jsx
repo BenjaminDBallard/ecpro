@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 // import { useContext} from "react";
 // import { DataContext } from "../App";
 import { useState, useEffect } from "react";
-import { fetchDashboardData } from "../api/fetch-data";
-import AddJob from './AddJob'
+import { fetchDashboardData } from "../../api/fetch-data";
+import AddJob from '../sub-components/client-comps/AddJob'
 
 export default function ClientIndex() {
 
